@@ -1,4 +1,4 @@
-import './SignInForm.scss'
+import './SignInForm.scss';
 
 export default function SignInForm() {
   return (
