@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { sliceArticles } from '../../Redux/slice/sliceArticles';
 import BasicPagination from '../Pagination/Pagination';
+import { CircularProgress } from '@mui/material';
 import Article from '../Article/Article';
 import './ArticlesList.scss';
 
@@ -24,11 +25,13 @@ export default function ArticlesList() {
 
   return (
     <>
-      {isLoad && articles
-        ? articles.map((article) => {
-            return <Article key={Math.random()} article={article} />;
-          })
-        : 'load...'}
+      {isLoad && articles ? (
+        articles.map((article) => {
+          return <Article key={Math.random()} article={article} />;
+        })
+      ) : (
+        <CircularProgress size={20} thickness={4} />
+      )}
       <BasicPagination />
     </>
   );
