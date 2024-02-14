@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import { setPage } from '../Redux/slice/slicePage';
+import { setPage } from '../../Redux/slice/slicePage';
 import { getCountArticles } from '../../services/services';
 
 export default function BasicPagination() {

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { sliceArticles } from '../Redux/slice/sliceArticles';
+import { sliceArticles } from '../../Redux/slice/sliceArticles';
 import BasicPagination from '../Pagination/Pagination';
 import Article from '../Article/Article';
 import './ArticlesList.scss';
