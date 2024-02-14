@@ -32,6 +32,7 @@ const articlesData = createSlice({
       })
       .addCase(sliceArticles.rejected, (state, action) => {
         state.isLoad = false;
+        state.error = action.error.message;
       });
   },
 });
