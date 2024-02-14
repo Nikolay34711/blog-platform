@@ -1,0 +1,83 @@
+.article-page {
+  max-width: 880px;
+  min-height: 685px;
+  margin: 0 auto;
+  margin-top: 30px;
+  background-color: white;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  .header-article {
+    max-width: 941px;
+    max-height: 76px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    width: 190px;
+    height: 60px;
+    margin-left: 20px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    overflow: hidden;
+
+    h2 {
+      color: rgb(24, 144, 255);
+      display: inline;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .tag {
+      width: 38px;
+      height: 20px;
+      color: black;
+      border-radius: 3px;
+      font-weight: 600;
+      font-size: 13px;
+      border: 2px solid rgba(0, 0, 0, 0.5);
+    }
+    img {
+      width: 16px;
+      height: 16px;
+      margin: 0 5px 0 10px;
+    }
+  }
+
+  .avatar {
+    display: flex;
+    width: 160px;
+    height: 70px;
+    margin: 15px;
+
+    .name {
+      font-weight: 600;
+    }
+
+    span {
+      display: block;
+      margin-right: 5px;
+    }
+
+    img {
+      width: 46px;
+      height: 46px;
+    }
+  }
+
+  p {
+    display: block;
+    max-width: 682px;
+    max-height: 45px;
+    margin: 0;
+    margin-left: 15px;
+    padding-bottom: 15px;
+    color: rgba(0, 0, 0, 0.75);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 22px;
+    text-align: left;
+    overflow: hidden;
+  }
+}
