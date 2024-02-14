@@ -7,7 +7,7 @@ const getCountArticles = async () => {
     const res = await axios.get(BASE_URL);
     return res.data.articlesCount;
   } catch (error) {
-    throw error.message;
+    throw error;
   }
 };
 
