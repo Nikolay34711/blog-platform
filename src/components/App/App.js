@@ -17,7 +17,7 @@ export default function App() {
             <Route path='articles/:slug' element={<ArticlesPage />} />
             <Route path='*' element={<h2>Not found</h2>} />
             <Route path='/sign-in' element={<SignInForm />} />
-            <Route path='/sign-Up' element={<SignUpForm />} />
+            <Route path='/sign-up' element={<SignUpForm />} />
           </Route>
         </Routes>
       </BrowserRouter>

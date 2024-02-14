@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './SignInForm.scss';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignInForm() {
+  const nav = useNavigate();
+  const [res, setRes] = useState(false);
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -12,11 +15,19 @@ export default function SignInForm() {
     e.preventDefault();
     try {
       const res = await axios.post('https://blog.kata.academy/api/users/login', { user });
-      console.log(`Успех ${res.data}`);
+      if (res.status === 200) {
+        setRes(true);
+      }
     } catch (error) {
       console.log(`не успех ${error}`);
     }
   };
+
+  useEffect(() => {
+    if (res) {
+      return nav('/sign-up');
+    }
+  });
 
   return (
     <div className='sign-in-form'>
