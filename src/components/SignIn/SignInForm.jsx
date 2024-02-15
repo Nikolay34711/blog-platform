@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setAuth } from '../../Redux/slice/sliceAuthentication';
 import axios from 'axios';
 import './SignInForm.scss';
-import { useNavigate } from 'react-router-dom';
 
 export default function SignInForm() {
+  const dispatch = useDispatch();
   const nav = useNavigate();
-  const [res, setRes] = useState(false);
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -15,19 +17,13 @@ export default function SignInForm() {
     e.preventDefault();
     try {
       const res = await axios.post('https://blog.kata.academy/api/users/login', { user });
-      if (res.status === 200) {
-        setRes(true);
-      }
+      localStorage.setItem('token', res.data.user.token);
+      dispatch(setAuth(res.data.user.token));
+      nav('/auth-page');
     } catch (error) {
-      console.log(`не успех ${error}`);
+      console.error(error);
     }
   };
-
-  useEffect(() => {
-    if (res) {
-      return nav('/sign-up');
-    }
-  });
 
   return (
     <div className='sign-in-form'>
@@ -55,7 +51,7 @@ export default function SignInForm() {
         </label>
         <button onClick={handleLogin}>Login</button>
         <span>
-          Dont't have an account? <a href='#'>Sign Up.</a>
+          Dont't have an account? <Link to='/sign-up'>Sign Up.</Link>
         </span>
       </form>
     </div>

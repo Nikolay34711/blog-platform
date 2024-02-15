@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './SignUpForm.scss';
 
 export default function SignUpForm() {
@@ -75,7 +76,7 @@ export default function SignUpForm() {
         <button>Create</button>
 
         <span>
-          Already have an account ? <a href='#'>Sign In.</a>
+          Already have an account ? <Link to='/sign-in'>Sign In.</Link>
         </span>
       </form>
     </div>
