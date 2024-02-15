@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ArticlesList from '../ArticlesList/ArticlesList';
 import ArticlesPage from '../../pages/ArticlePage/ArticlePage';
-import Header from '../Header/Header';
 import SignUpForm from '../../pages/SignUp/SignUpForm';
 import SignInForm from '../../pages/SignIn/SignInForm';
 import AuthPage from '../../pages/AuthPage/AuthPage';
+import MainLayout from '../MainLayout/MainLayout';
 import './App.scss';
 
 export default function App() {
@@ -12,7 +12,7 @@ export default function App() {
     <div className='App'>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Header />}>
+          <Route path='/' element={<MainLayout />}>
             <Route index element={<ArticlesList />} />
             <Route path='articles' element={<ArticlesList />} />
             <Route path='articles/:slug' element={<ArticlesPage />} />

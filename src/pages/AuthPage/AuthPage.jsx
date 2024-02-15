@@ -4,15 +4,20 @@ import { useNavigate } from 'react-router-dom';
 
 export default function AuthPage() {
   const { jwt } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(true);
   const nav = useNavigate();
-  const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    if (!jwt) {
-      nav('/sign-up');
-    }
-    setLoad(true);
+    const checkAuth = () => {
+      if (!jwt) {
+        nav('/sign-in');
+      } else {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
   }, [jwt, nav]);
 
-  return <>{load ? <h2>Привет зареганый юзер</h2> : 'load...'}</>;
+  return <>{loading ? <h2>Loading...</h2> : <h2>Привет, авторизованный пользователь</h2>}</>;
 }
