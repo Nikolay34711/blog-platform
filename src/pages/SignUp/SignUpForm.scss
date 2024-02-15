@@ -25,6 +25,9 @@
   span {
     margin-left: 15px;
   }
+  .already {
+    margin-left: 65px;
+  }
 
   .check {
     padding: 1px;
@@ -67,5 +70,10 @@
   a {
     color: rgb(24, 144, 255);
     margin-left: 15px;
+  }
+
+  .error {
+    color: red;
+    font-size: 0.8rem;
   }
 }
