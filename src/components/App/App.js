@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ArticlesList from '../ArticlesList/ArticlesList';
-import ArticlesPage from '../ArticlePage/ArticlePage';
+import ArticlesPage from '../../pages/ArticlePage/ArticlePage';
 import Header from '../Header/Header';
-import SignInForm from '../SignIn/SignInForm';
-import SignUpForm from '../SignUp/SignUpForm';
-import AuthPage from '../AuthPage/AuthPage';
+import SignUpForm from '../../pages/SignUp/SignUpForm';
+import SignInForm from '../../pages/SignIn/SignInForm';
+import AuthPage from '../../pages/AuthPage/AuthPage';
 import './App.scss';
 
 export default function App() {
