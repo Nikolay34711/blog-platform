@@ -4,7 +4,7 @@ import logo from './Rectangle 1.svg';
 import './Header.scss';
 
 export default function Header() {
-  const { jwt } = useSelector((state) => state.user);
+  const { jwt, username } = useSelector((state) => state.user);
 
   return (
     <>
@@ -15,7 +15,7 @@ export default function Header() {
               <Link to='/'>RealWorld Blog</Link>
             </h2>
             <button className='btn-create'>create article</button>
-            <span className='name'>John Doe</span>
+            <span className='name'>{username}</span>
             <img src={logo} alt='' />
             <button className='btn-out'>Log out</button>
           </>

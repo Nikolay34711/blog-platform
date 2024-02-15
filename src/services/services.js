@@ -14,8 +14,8 @@ const getCountArticles = async () => {
 const login = async (user) => {
   try {
     const res = await axios.post(`${BASE_URL}users/login`, { user });
-    const token = res.data.user.token;
-    localStorage.setItem('token', token);
+    localStorage.setItem('token', res.data.user.token);
+    localStorage.setItem('username', res.data.user.username);
     return res;
   } catch (error) {
     console.error(error);

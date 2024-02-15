@@ -17,7 +17,7 @@ export default function SignInForm() {
     e.preventDefault();
     try {
       const res = await login(user);
-      dispatch(setAuth(res.data.user.token));
+      dispatch(setAuth(res.data.user));
       nav('/');
     } catch (error) {
       console.error(error);
