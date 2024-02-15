@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import logo from './Rectangle 1.svg';
 import './Header.scss';
 
 export default function Header() {
@@ -7,11 +8,16 @@ export default function Header() {
 
   return (
     <>
-      <header className='header-not-registered'>
+      <header className='header'>
         {jwt ? (
           <>
-            <button className='btn-in'>create article</button>
-            <button className='btn-up'>Log out</button>
+            <h2>
+              <Link to='/'>RealWorld Blog</Link>
+            </h2>
+            <button className='btn-create'>create article</button>
+            <span className='name'>John Doe</span>
+            <img src={logo} alt='' />
+            <button className='btn-out'>Log out</button>
           </>
         ) : (
           <>

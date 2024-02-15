@@ -3,7 +3,6 @@ import ArticlesList from '../ArticlesList/ArticlesList';
 import ArticlesPage from '../../pages/ArticlePage/ArticlePage';
 import SignUpForm from '../../pages/SignUp/SignUpForm';
 import SignInForm from '../../pages/SignIn/SignInForm';
-import AuthPage from '../../pages/AuthPage/AuthPage';
 import MainLayout from '../MainLayout/MainLayout';
 import './App.scss';
 
@@ -19,7 +18,6 @@ export default function App() {
             <Route path='*' element={<h2>Not found</h2>} />
             <Route path='/sign-in' element={<SignInForm />} />
             <Route path='/sign-up' element={<SignUpForm />} />
-            <Route path='/auth-page' element={<AuthPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
