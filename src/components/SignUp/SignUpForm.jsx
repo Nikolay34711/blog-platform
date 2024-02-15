@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { registration } from '../../services/services';
 import './SignUpForm.scss';
 
 export default function SignUpForm() {
+  const nav = useNavigate();
   const [user, setUser] = useState({
     username: '',
     email: '',
@@ -13,10 +14,11 @@ export default function SignUpForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://blog.kata.academy/api/users', { user });
-      console.log('Успешно зарегистрирован:', res.data);
+      await registration(user);
+      setUser({ username: '', email: '', password: '' });
+      nav('/sign-in');
     } catch (error) {
-      console.error('Ошибка при регистрации пользователя:', error);
+      console.error(error);
     }
   };
 

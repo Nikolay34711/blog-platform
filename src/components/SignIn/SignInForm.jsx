@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { setAuth } from '../../Redux/slice/sliceAuthentication';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { login } from '../../services/services';
 import './SignInForm.scss';
 
 export default function SignInForm() {
@@ -16,10 +16,9 @@ export default function SignInForm() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://blog.kata.academy/api/users/login', { user });
-      localStorage.setItem('token', res.data.user.token);
+      const res = await login(user);
       dispatch(setAuth(res.data.user.token));
-      nav('/auth-page');
+      nav('/');
     } catch (error) {
       console.error(error);
     }
