@@ -4,6 +4,7 @@ import ArticlesPage from '../../pages/ArticlePage/ArticlePage';
 import SignUpForm from '../../pages/SignUp/SignUpForm';
 import SignInForm from '../../pages/SignIn/SignInForm';
 import MainLayout from '../MainLayout/MainLayout';
+import EditProfile from '../../pages/EditProfile/EditProfile';
 import './App.scss';
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
             <Route path='*' element={<h2>Not found</h2>} />
             <Route path='/sign-in' element={<SignInForm />} />
             <Route path='/sign-up' element={<SignUpForm />} />
+            <Route path='/profile' element={<EditProfile />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -26,8 +26,12 @@ export default function Header() {
               <Link to='/'>RealWorld Blog</Link>
             </h2>
             <button className='btn-create'>create article</button>
-            <span className='name'>{username}</span>
-            <img src={logo} alt='' />
+            <Link to='/profile'>
+              <span className='name'>{username}</span>
+            </Link>
+            <Link to='/profile'>
+              <img src={logo} alt='' />
+            </Link>
             <button className='btn-out' onClick={handleLogOut}>
               Log out
             </button>
