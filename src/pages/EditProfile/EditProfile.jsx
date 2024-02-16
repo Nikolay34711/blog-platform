@@ -4,11 +4,11 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './EditProfile.scss';
 
 export default function EditProfile() {
   const { jwt } = useSelector((state) => state.user);
-
   const nav = useNavigate();
 
   useEffect(() => {
@@ -19,25 +19,45 @@ export default function EditProfile() {
 
   const validationSchema = yup.object().shape({
     username: yup.string().required('Username is required'),
-    email: yup.string().email('Email is invalid').required('Email is required'),
-    newPassword: yup
+    email: yup
       .string()
-      .min(6, 'Password must be at least 6 characters')
-      .max(40, 'Password must not exceed 40 characters'),
+      .email('Email is invalid')
+      .required('Email is required')
+      .lowercase('Email must be lowercase'),
+    password: yup.string().min(6, 'Password must be at least 6 characters'),
     avatarImage: yup.string().url('Avatar image URL is invalid'),
   });
 
   const {
     register,
+    handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.put(
+        'https://blog.kata.academy/api/user',
+        { user: { ...data } },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${jwt}`,
+          },
+        },
+      );
+      console.log('Profile Updated:', response.data);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+  };
+
   return (
     <div className='edit-profile'>
       <h2>Edit Profile</h2>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label>
           Username
           {errors.username && <span className='error'>{errors.username.message}</span>}
@@ -50,13 +70,14 @@ export default function EditProfile() {
         </label>
         <label>
           New password
-          {errors.newPassword && <span className='error'>{errors.newPassword.message}</span>}
-          <input type='password' placeholder='New password' {...register('newPassword')} />
+          {errors.password && <span className='error'>{errors.password.message}</span>}
+          <input type='password' placeholder='New password' {...register('password')} />
         </label>
+
         <label>
-          Avatar image ( URL )
-          <input type='url' {...register('avatarImageUrl')} placeholder='Avatar image' />
-          {errors.avatarImage && <span>{errors.avatarImage.message}</span>}
+          Avatar image (URL)
+          {errors.avatarImage && <span className='error'>{errors.avatarImage.message}</span>}
+          <input type='url' placeholder='Avatar image URL' {...register('avatarImage')} />
         </label>
         <button type='submit'>Save</button>
       </form>
