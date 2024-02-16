@@ -25,7 +25,9 @@ export default function Header() {
             <h2>
               <Link to='/'>RealWorld Blog</Link>
             </h2>
-            <button className='btn-create'>create article</button>
+            <button className='btn-create'>
+              <Link to='/new-article'>create article</Link>
+            </button>
             <Link to='/profile'>
               <span className='name'>{username}</span>
             </Link>
