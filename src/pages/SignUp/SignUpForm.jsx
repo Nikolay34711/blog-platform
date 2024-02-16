@@ -6,18 +6,18 @@ import { registration } from '../../services/services';
 import { Link, useNavigate } from 'react-router-dom';
 import './SignUpForm.scss';
 
-const schema = yup.object().shape({
-  username: yup.string().required().min(3).max(20),
-  email: yup.string().email().required(),
-  password: yup.string().required().min(6).max(40),
-  repeatPassword: yup
-    .string()
-    .oneOf([yup.ref('password'), null], 'Passwords must match')
-    .required(),
-  checkbox: yup.boolean().oneOf([true], 'Please agree to the terms').required(),
-});
-
 export default function SignUpForm() {
+  const schema = yup.object().shape({
+    username: yup.string().required().min(3).max(20),
+    email: yup.string().email().required(),
+    password: yup.string().required().min(6).max(40),
+    repeatPassword: yup
+      .string()
+      .oneOf([yup.ref('password'), null], 'Passwords must match')
+      .required(),
+    checkbox: yup.boolean().oneOf([true], 'Please agree to the terms').required(),
+  });
+
   const {
     register,
     handleSubmit,
@@ -25,6 +25,7 @@ export default function SignUpForm() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  
   const nav = useNavigate();
 
   const onSubmit = async (data) => {

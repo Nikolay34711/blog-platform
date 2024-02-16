@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import './EditProfile.scss';
 
 export default function EditProfile() {
+  const { jwt } = useSelector((state) => state.user);
+
+  const nav = useNavigate();
+
+  useEffect(() => {
+    if (!jwt) {
+      nav('/sign-in');
+    }
+  }, [jwt, nav]);
+
   const validationSchema = yup.object().shape({
     username: yup.string().required('Username is required'),
     email: yup.string().email('Email is invalid').required('Email is required'),
@@ -17,20 +29,15 @@ export default function EditProfile() {
 
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (data) => {
-    console.log('Submitted data:', data);
-  };
-
   return (
     <div className='edit-profile'>
       <h2>Edit Profile</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         <label>
           Username
           {errors.username && <span className='error'>{errors.username.message}</span>}
@@ -49,7 +56,7 @@ export default function EditProfile() {
         <label>
           Avatar image ( URL )
           <input type='url' {...register('avatarImageUrl')} placeholder='Avatar image' />
-          {errors.avatarImageUrl && <span>{errors.avatarImageUrl.message}</span>}
+          {errors.avatarImage && <span>{errors.avatarImage.message}</span>}
         </label>
         <button type='submit'>Save</button>
       </form>
