@@ -16,6 +16,7 @@ const login = async (user) => {
     const res = await axios.post(`${BASE_URL}users/login`, { user });
     localStorage.setItem('token', res.data.user.token);
     localStorage.setItem('username', res.data.user.username);
+    localStorage.setItem('email', res.data.user.email);
     return res;
   } catch (error) {
     console.error(error);

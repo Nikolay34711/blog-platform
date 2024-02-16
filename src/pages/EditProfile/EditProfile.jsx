@@ -8,9 +8,9 @@ import axios from 'axios';
 import './EditProfile.scss';
 
 export default function EditProfile() {
-  const { jwt } = useSelector((state) => state.user);
-  const nav = useNavigate();
+  const { jwt, username, email } = useSelector((state) => state.user);
 
+  const nav = useNavigate();
   useEffect(() => {
     if (!jwt) {
       nav('/sign-in');
@@ -61,12 +61,22 @@ export default function EditProfile() {
         <label>
           Username
           {errors.username && <span className='error'>{errors.username.message}</span>}
-          <input type='text' placeholder='Username' {...register('username')} />
+          <input
+            type='text'
+            placeholder='Username'
+            defaultValue={username}
+            {...register('username')}
+          />
         </label>
         <label className='email'>
           Email address
           {errors.email && <span className='error'>{errors.email.message}</span>}
-          <input type='email' placeholder='Email address' {...register('email')} />
+          <input
+            type='email'
+            placeholder='Email address'
+            defaultValue={email}
+            {...register('email')}
+          />
         </label>
         <label>
           New password

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   jwt: localStorage.getItem('token') ?? null,
   username: localStorage.getItem('username') ?? '',
+  email: localStorage.getItem('email') ?? '',
 };
 
 const userAuth = createSlice({
@@ -10,9 +11,10 @@ const userAuth = createSlice({
   initialState,
   reducers: {
     setAuth(state, action) {
-      const { token: jwt, username } = action.payload;
+      const { token: jwt, username, email } = action.payload;
       state.jwt = jwt;
       state.username = username;
+      state.email = email;
     },
   },
 });
