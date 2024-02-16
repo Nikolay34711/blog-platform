@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import heart from './heart.svg';
 import './ArticlePage.scss';
@@ -35,8 +36,12 @@ export default function ArticlesPage() {
             <span>{format(new Date(createdAt), 'MMM dd, yyyy')}</span>
           </span>
           <img src={author.image} alt='myPhoto' />
-          <button className='btn-del'>DELETE</button>
-          <button className='btn-edit'>EDIT</button>
+          <div>
+            <button className='btn-del'>DELETE</button>
+            <button className='btn-edit'>
+              <Link to={`/articles/${slug}/edit`}>EDIT</Link>
+            </button>
+          </div>
         </div>
       </div>
       <p>{description}</p>

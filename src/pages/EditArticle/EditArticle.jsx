@@ -1,22 +1,20 @@
 import { useForm, useFieldArray } from 'react-hook-form';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import './CreateArticle.scss';
+import '../CreateArticle/CreateArticle.scss';
 
-export default function CreateArticle() {
+export default function EditArticle() {
   const { jwt } = useSelector((state) => state.user);
+  const { slug } = useParams();
+  const { articles } = useSelector((state) => state.articles);
+
+  const article = articles.find((article) => article.slug === slug);
+
+  const { title, description, tagList, body } = article;
 
   const nav = useNavigate();
-
-  useEffect(() => {
-    if (!jwt) {
-      nav('/sign-in');
-    }
-    append({ tag: '' });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jwt, nav]);
 
   const {
     register,
@@ -40,8 +38,8 @@ export default function CreateArticle() {
 
   const onSubmit = async (data) => {
     try {
-      await axios.post(
-        'https://blog.kata.academy/api/articles',
+      await axios.put(
+        `https://blog.kata.academy/api/articles/${slug}`,
         { article: { ...data } },
         {
           headers: {
@@ -55,6 +53,19 @@ export default function CreateArticle() {
       console.error(error);
     }
   };
+  
+  useEffect(() => {
+    if (!jwt) {
+      nav('/sign-in');
+    }
+
+    if (tagList.length) {
+      tagList.map((tag) => append({ tag: tag }));
+    } else {
+      // eslint-disable-next-line no-use-before-define
+      append({ tag: '' });
+    }
+  }, [jwt, nav, tagList, append]);
 
   return (
     <div className='create-article'>
@@ -67,6 +78,7 @@ export default function CreateArticle() {
           id='title'
           type='text'
           placeholder='Title'
+          defaultValue={title}
           {...register('title', { required: true })}
         />
 
@@ -76,6 +88,7 @@ export default function CreateArticle() {
           className='input'
           id='descr'
           type='text'
+          defaultValue={description}
           placeholder='Short description'
           {...register('description', { required: true })}
         />
@@ -88,6 +101,7 @@ export default function CreateArticle() {
           cols='30'
           rows='10'
           placeholder='Text'
+          defaultValue={body}
           {...register('body', { required: true })}
         ></textarea>
 

@@ -6,6 +6,7 @@ import SignInForm from '../../pages/SignIn/SignInForm';
 import MainLayout from '../MainLayout/MainLayout';
 import EditProfile from '../../pages/EditProfile/EditProfile';
 import CreateArticle from '../../pages/CreateArticle/CreateArticle';
+import EditArticle from '../../pages/EditArticle/EditArticle';
 import './App.scss';
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
             <Route path='/sign-up' element={<SignUpForm />} />
             <Route path='/profile' element={<EditProfile />} />
             <Route path='/new-article' element={<CreateArticle />} />
+            <Route path='/articles/:slug/edit' element={<EditArticle />} />
           </Route>
         </Routes>
       </BrowserRouter>
