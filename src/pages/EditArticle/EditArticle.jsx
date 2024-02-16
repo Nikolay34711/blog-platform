@@ -20,7 +20,6 @@ export default function EditArticle() {
     register,
     control,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
   const { fields, append, remove } = useFieldArray({
@@ -37,23 +36,27 @@ export default function EditArticle() {
   };
 
   const onSubmit = async (data) => {
+    const validData = {
+      article: {
+        title: data.title,
+        description: data.description,
+        body: data.body,
+        tagList: data.tags.map((tag) => tag.tag),
+      },
+    };
     try {
-      await axios.put(
-        `https://blog.kata.academy/api/articles/${slug}`,
-        { article: { ...data } },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${jwt}`,
-          },
+      await axios.put(`https://blog.kata.academy/api/articles/${slug}`, validData, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${jwt}`,
         },
-      );
-      reset();
+      });
+      nav('/');
     } catch (error) {
       console.error(error);
     }
   };
-  
+
   useEffect(() => {
     if (!jwt) {
       nav('/sign-in');
@@ -62,7 +65,6 @@ export default function EditArticle() {
     if (tagList.length) {
       tagList.map((tag) => append({ tag: tag }));
     } else {
-      // eslint-disable-next-line no-use-before-define
       append({ tag: '' });
     }
   }, [jwt, nav, tagList, append]);

@@ -10,14 +10,6 @@ export default function CreateArticle() {
 
   const nav = useNavigate();
 
-  useEffect(() => {
-    if (!jwt) {
-      nav('/sign-in');
-    }
-    append({ tag: '' });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jwt, nav]);
-
   const {
     register,
     control,
@@ -39,22 +31,33 @@ export default function CreateArticle() {
   };
 
   const onSubmit = async (data) => {
+    const validData = {
+      article: {
+        title: data.title,
+        description: data.description,
+        body: data.body,
+        tagList: data.tags.map((tag) => tag.tag),
+      },
+    };
     try {
-      await axios.post(
-        'https://blog.kata.academy/api/articles',
-        { article: { ...data } },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${jwt}`,
-          },
+      await axios.post('https://blog.kata.academy/api/articles', validData, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${jwt}`,
         },
-      );
+      });
       reset();
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (!jwt) {
+      nav('/sign-in');
+    }
+    append({ tag: '' });
+  }, [jwt, nav, append]);
 
   return (
     <div className='create-article'>
