@@ -35,6 +35,8 @@ export default function ArticlesPage() {
             <span>{format(new Date(createdAt), 'MMM dd, yyyy')}</span>
           </span>
           <img src={author.image} alt='myPhoto' />
+          <button className='btn-del'>DELETE</button>
+          <button className='btn-edit'>EDIT</button>
         </div>
       </div>
       <p>{description}</p>

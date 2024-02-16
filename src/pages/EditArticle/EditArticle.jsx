@@ -58,7 +58,7 @@ export default function CreateArticle() {
 
   return (
     <div className='create-article'>
-      <h2>Create new article</h2>
+      <h2>Edit article</h2>
       <form className='create-article' onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor='title'>Title</label>
         {errors.title && <span className='error'>Title is required</span>}
