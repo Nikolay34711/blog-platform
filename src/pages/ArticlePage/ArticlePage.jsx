@@ -9,8 +9,8 @@ import { Liked, deleteArticle, disLiked, getArticle } from '../../services/servi
 import like from '../../icon/like.svg';
 import noLike from '../../icon/noLike.svg';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import './ArticlePage.scss';
+import { cutTag, cutText } from '../../utils/cutText';
 
 export default function ArticlesPage() {
   const nav = useNavigate();
@@ -82,13 +82,13 @@ export default function ArticlesPage() {
           {tagList?.map((tag) => {
             return (
               <span key={uuidv4()} className='tag'>
-                {tag}
+                {cutTag(tag)}
               </span>
             );
           })}
         </div>
         <div className='avatar'>
-          <span>
+          <span className='container-avatar'>
             {' '}
             <span className='name'>{author?.username}</span>
             <span>{formattedDate(createdAt)}</span>
@@ -116,7 +116,7 @@ export default function ArticlesPage() {
           )}
         </div>
       </div>
-      <p>{description}</p>
+      <p>{cutText(description)}</p>
       <ReactMarkdown>{body}</ReactMarkdown>
     </div>
   );

@@ -5,6 +5,7 @@ import like from '../../icon/like.svg';
 import formattedDate from '../../utils/formattedDate';
 import { useSelector } from 'react-redux';
 import { Liked, disLiked } from '../../services/services';
+import { cutTag, cutText } from '../../utils/cutText';
 import './Article.scss';
 import { useState } from 'react';
 
@@ -42,7 +43,7 @@ export default function Article({ article }) {
         <div className='title'>
           {
             <h2>
-              <Link to={`/articles/${slug}`}>{title}</Link>
+              <Link to={`/articles/${slug}`}>{cutText(title)}</Link>
             </h2>
           }
           <img src={favoriteBool ? like : noLike} alt='likes' onClick={handleLike} />
@@ -50,13 +51,13 @@ export default function Article({ article }) {
           {tagList.map((tag) => {
             return (
               <span key={uuidv4()} className='tag'>
-                {tag}
+                {cutTag(tag)}
               </span>
             );
           })}
         </div>
         <div className='avatar'>
-          <span>
+          <span className='container-avatar'>
             {' '}
             <span className='name'>{author?.username}</span>
             <span>{formattedDate(createdAt)}</span>
@@ -64,7 +65,7 @@ export default function Article({ article }) {
           <img src={author?.image} alt='avatar' />
         </div>
       </div>
-      <p>{description}</p>
+      <p>{cutText(description)}</p>
     </div>
   );
 }
