@@ -32,11 +32,16 @@ export default function CreateArticle() {
 
   const onSubmit = async (data) => {
     try {
+      if (!/^(?![\s\n]*$).+/.test(data.title) || !/^(?![\s\n]*$).+/.test(data.body)) {
+        message.error('Title and body cannot be empty or contain only spaces');
+        return;
+      }
+
       await createArticle(data, jwt);
-      message.info('article added');
+      message.info('Article added');
       reset();
     } catch (error) {
-      console.error('Error deleting article:', error);
+      console.error('Error creating article:', error);
       message.error('Failed to add article');
     }
   };
