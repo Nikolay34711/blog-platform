@@ -85,7 +85,7 @@ export default function ArticlesPage() {
             {tagList?.map((tag) => {
               return (
                 <li key={uuidv4()} className='tag'>
-                  {truncate(tag)}
+                  {truncate(tag, 0)}
                 </li>
               );
             })}
