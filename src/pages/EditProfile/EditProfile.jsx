@@ -45,7 +45,6 @@ export default function EditProfile() {
       message.info('profile updated');
     } catch (error) {
       console.error('Error deleting article:', error);
-      message.error('Failed to update profile');
     }
   };
 

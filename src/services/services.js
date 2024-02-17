@@ -47,6 +47,8 @@ const registration = async (user) => {
       message.error('this nickname is already taken');
     } else if ('email' in res.errors) {
       message.error('This email is already registered');
+    } else {
+      message.error('try again or check data');
     }
     console.error('Ошибка при регистрации пользователя:', error);
     throw new Error('Failed to create account');
@@ -128,8 +130,12 @@ const updateProfile = async (data, jwt) => {
     );
     return response;
   } catch (error) {
+    const res = JSON.parse(error.response.request.response);
+    if ('username' in res.errors) {
+      message.error('this nickname is already taken');
+    }
     console.error('Error updating profile:', error);
-    throw new Error('Failed to update profile');
+    throw new Error('try again or check data');
   }
 };
 
