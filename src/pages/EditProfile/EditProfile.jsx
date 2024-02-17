@@ -75,7 +75,12 @@ export default function EditProfile() {
         <label>
           New password
           {errors.password && <span className='error'>{errors.password.message}</span>}
-          <input type='password' placeholder='New password' {...register('password')} />
+          <input
+            type='password'
+            placeholder='New password'
+            {...register('password')}
+            autoComplete='off'
+          />
         </label>
 
         <label>

@@ -75,6 +75,7 @@ export default function SignUpForm() {
             id='password'
             placeholder='Password'
             {...register('password')}
+            autoComplete='off'
           />
         </label>
 
@@ -87,6 +88,7 @@ export default function SignUpForm() {
             id='repeatPassword'
             placeholder='Repeat Password'
             {...register('repeatPassword')}
+            autoComplete='off'
           />
         </label>
 

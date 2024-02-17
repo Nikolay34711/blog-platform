@@ -54,6 +54,7 @@ export default function SignInForm() {
             id='pass'
             placeholder='Password'
             {...register('password', { required: 'Password is required' })}
+            autoComplete='off'
           />
         </label>
         <button type='submit' disabled={submitting}>

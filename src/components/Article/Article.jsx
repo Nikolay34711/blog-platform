@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import noLike from '../../icon/noLike.svg';
 import like from '../../icon/like.svg';
@@ -10,6 +10,7 @@ import { useState } from 'react';
 import './Article.scss';
 
 export default function Article({ article }) {
+  const nav = useNavigate();
   const { jwt } = useSelector((state) => state.user);
   const { title, description, author, favorited, createdAt, tagList, favoritesCount, slug } =
     article;
@@ -18,6 +19,10 @@ export default function Article({ article }) {
   const [countLike, setCountLike] = useState(favoritesCount);
 
   const handleLike = async () => {
+    if (!jwt) {
+      nav('/sign-in');
+      return;
+    }
     if (favoriteBool) {
       try {
         await Liked(jwt, slug);
