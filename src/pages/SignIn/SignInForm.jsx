@@ -4,6 +4,7 @@ import { setAuth } from '../../Redux/slice/sliceAuthentication';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { login } from '../../services/services';
+import { message } from 'antd';
 import './SignInForm.scss';
 
 export default function SignInForm() {
@@ -21,8 +22,10 @@ export default function SignInForm() {
       setSubmitting(true);
       const res = await login(data);
       dispatch(setAuth(res.data.user));
+      message.info('welcome');
       nav('/');
     } catch (error) {
+      message.error('try again or check your data');
       console.error(error);
     } finally {
       setSubmitting(false);

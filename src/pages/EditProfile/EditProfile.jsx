@@ -5,8 +5,8 @@ import * as yup from 'yup';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
-import './EditProfile.scss';
 import { updateProfile } from '../../services/services';
+import './EditProfile.scss';
 
 export default function EditProfile() {
   const { jwt, username, email } = useSelector((state) => state.user);

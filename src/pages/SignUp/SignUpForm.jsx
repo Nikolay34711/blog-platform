@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registration } from '../../services/services';
 import { Link, useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 import './SignUpForm.scss';
 
 const schema = yup.object().shape({
@@ -30,6 +31,7 @@ export default function SignUpForm() {
   const onSubmit = async (data) => {
     try {
       await registration(data);
+      message.info('you have successfully created an account');
       nav('/sign-in');
     } catch (error) {
       console.error(error);

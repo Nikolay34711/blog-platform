@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import axios from 'axios';
 
 const BASE_URL = 'https://blog.kata.academy/api/';
@@ -26,7 +27,7 @@ const login = async (user) => {
 
 const registration = async (user) => {
   try {
-    await axios.post(
+    const res = await axios.post(
       `${BASE_URL}users`,
       {
         user: user,
@@ -37,9 +38,18 @@ const registration = async (user) => {
         },
       },
     );
-    return 'f';
+    return res;
   } catch (error) {
+    const res = JSON.parse(error.response.request.response);
+    if ('username' in res.errors && 'email' in res.errors) {
+      message.error('This email address and nickname are already registered');
+    } else if ('username' in res.errors) {
+      message.error('this nickname is already taken');
+    } else if ('email' in res.errors) {
+      message.error('This email is already registered');
+    }
     console.error('Ошибка при регистрации пользователя:', error);
+    throw new Error('Failed to create account');
   }
 };
 
