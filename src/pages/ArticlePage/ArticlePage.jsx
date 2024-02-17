@@ -53,6 +53,10 @@ export default function ArticlesPage() {
   }
 
   const handleLike = async () => {
+    if (!jwt) {
+      nav('/sign-in');
+      return;
+    }
     if (favoriteBool) {
       try {
         await Liked(jwt, slug);
