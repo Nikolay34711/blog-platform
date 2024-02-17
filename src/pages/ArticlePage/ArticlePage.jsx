@@ -10,7 +10,7 @@ import like from '../../icon/like.svg';
 import noLike from '../../icon/noLike.svg';
 import { useEffect, useState } from 'react';
 import './ArticlePage.scss';
-import { cutTag, cutText } from '../../utils/cutText';
+import { truncate } from '../../utils/cutText';
 
 export default function ArticlesPage() {
   const nav = useNavigate();
@@ -81,15 +81,15 @@ export default function ArticlesPage() {
             <img src={favoriteBool ? like : noLike} alt='likes' onClick={handleLike} />
             <span>{countLike}</span>
           </span>
-          <div>
+          <ul>
             {tagList?.map((tag) => {
               return (
-                <span key={uuidv4()} className='tag'>
-                  {cutTag(tag)}
-                </span>
+                <li key={uuidv4()} className='tag'>
+                  {truncate(tag)}
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
         <div className='avatar'>
           <span className='container-avatar'>
@@ -120,7 +120,7 @@ export default function ArticlesPage() {
           )}
         </div>
       </div>
-      <p>{cutText(description)}</p>
+      <p>{truncate(description)}</p>
       <ReactMarkdown>{body}</ReactMarkdown>
     </div>
   );

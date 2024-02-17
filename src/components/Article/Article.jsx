@@ -5,7 +5,7 @@ import like from '../../icon/like.svg';
 import formattedDate from '../../utils/formattedDate';
 import { useSelector } from 'react-redux';
 import { Liked, disLiked } from '../../services/services';
-import { cutTag, cutText } from '../../utils/cutText';
+import { truncate } from '../../utils/cutText';
 import { useState } from 'react';
 import './Article.scss';
 
@@ -43,22 +43,22 @@ export default function Article({ article }) {
         <div className='title'>
           {
             <h2>
-              <Link to={`/articles/${slug}`}>{cutText(title)}</Link>
+              <Link to={`/articles/${slug}`}>{truncate(title, 20)}</Link>
             </h2>
           }
           <span className='like'>
             <img src={favoriteBool ? like : noLike} alt='likes' onClick={handleLike} />
             <span>{countLike}</span>
           </span>
-          <div>
+          <ul>
             {tagList.map((tag) => {
               return (
-                <span key={uuidv4()} className='tag'>
-                  {cutTag(tag)}
-                </span>
+                <li key={uuidv4()} className='tag'>
+                  {truncate(tag)}
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
         <div className='avatar'>
           <span className='container-avatar'>
@@ -69,7 +69,7 @@ export default function Article({ article }) {
           <img src={author?.image} alt='avatar' />
         </div>
       </div>
-      <p>{cutText(description)}</p>
+      <p>{truncate(description, 30)}</p>
     </div>
   );
 }
