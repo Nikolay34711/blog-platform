@@ -1,10 +1,12 @@
-import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
-import heart from './heart.svg';
+import { v4 as uuidv4 } from 'uuid';
+import noLike from '../../icon/noLike.svg';
+import formattedDate from '../../utils/formattedDate';
 import './Article.scss';
 
 export default function Article({ article }) {
   const { title, description, author, createdAt, tagList, favoritesCount, slug } = article;
+
   return (
     <div className='article'>
       <div className='header-article'>
@@ -14,11 +16,11 @@ export default function Article({ article }) {
               <Link to={`/articles/${slug}`}>{title}</Link>
             </h2>
           }
-          <img src={heart} alt='likes' />
+          <img src={noLike} alt='likes' />
           <span>{favoritesCount}</span>
           {tagList.map((tag) => {
             return (
-              <span key={Math.random()} className='tag'>
+              <span key={uuidv4()} className='tag'>
                 {tag}
               </span>
             );
@@ -27,10 +29,10 @@ export default function Article({ article }) {
         <div className='avatar'>
           <span>
             {' '}
-            <span className='name'>{author.username}</span>
-            <span>{format(new Date(createdAt), 'MMM dd, yyyy')}</span>
+            <span className='name'>{author?.username}</span>
+            <span>{formattedDate(createdAt)}</span>
           </span>
-          <img src={author.image} alt='myPhoto' />
+          <img src={author?.image} alt='avatar' />
         </div>
       </div>
       <p>{description}</p>

@@ -19,7 +19,7 @@ export default function BasicPagination() {
     };
 
     fetchData();
-  }, []);
+  }, [page]);
 
   return (
     <Stack spacing={2} sx={{ justifyContent: 'center', alignItems: 'center', margin: '25px' }}>

@@ -2,10 +2,13 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './CreateArticle.scss';
+import { Alert } from 'antd';
 
 export default function CreateArticle() {
+  const [addArticle, setAddArticle] = useState(false);
+
   const { jwt } = useSelector((state) => state.user);
 
   const nav = useNavigate();
@@ -46,6 +49,7 @@ export default function CreateArticle() {
           Authorization: `Token ${jwt}`,
         },
       });
+      setAddArticle(true);
       reset();
     } catch (error) {
       console.error(error);
@@ -62,6 +66,7 @@ export default function CreateArticle() {
   return (
     <div className='create-article'>
       <h2>Create new article</h2>
+      {addArticle && <Alert type='success' message='article add' />}
       <form className='create-article' onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor='title'>Title</label>
         {errors.title && <span className='error'>Title is required</span>}

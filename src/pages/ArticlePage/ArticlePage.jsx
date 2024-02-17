@@ -3,42 +3,36 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { Popconfirm, message } from 'antd';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import ReactMarkdown from 'react-markdown';
+import { formatDate } from 'date-fns';
+import { deleteArticle } from '../../services/services';
 import heart from './heart.svg';
 import './ArticlePage.scss';
 
 export default function ArticlesPage() {
-  const { jwt } = useSelector((state) => state.user);
-  const { articles } = useSelector((state) => state.articles);
-  const { slug } = useParams();
   const nav = useNavigate();
+  const { jwt } = useSelector((state) => state.user);
+  const { slug } = useParams();
+  const { articles } = useSelector((state) => state.articles);
 
   const article = articles.find((article) => article.slug === slug);
 
   const { title, description, author, createdAt, tagList, favoritesCount, body } = article;
 
-  function confirm() {
-    message.info('Clicked on Yes.');
-    const deleteArticle = async () => {
-      try {
-        await axios.delete(`https://blog.kata.academy/api/articles/${slug}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${jwt}`,
-          },
-        });
-        nav('/');
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    deleteArticle();
+  async function confirm() {
+    try {
+      await deleteArticle(slug, jwt);
+      message.info('article deleted');
+      setTimeout(() => nav('/'), 2000);
+    } catch (error) {
+      console.error('Error deleting article:', error);
+      message.error('Failed to delete article');
+    }
   }
 
   function cancel() {
-    message.error('Clicked on No.');
+    message.error('cancel');
   }
 
   return (
@@ -50,7 +44,7 @@ export default function ArticlesPage() {
           <span>{favoritesCount}</span>
           {tagList.map((tag) => {
             return (
-              <span key={Math.random()} className='tag'>
+              <span key={uuidv4()} className='tag'>
                 {tag}
               </span>
             );
@@ -60,9 +54,9 @@ export default function ArticlesPage() {
           <span>
             {' '}
             <span className='name'>{author.username}</span>
-            <span>{format(new Date(createdAt), 'MMM dd, yyyy')}</span>
+            <span>{formatDate(createdAt)}</span>
           </span>
-          <img src={author.image} alt='myPhoto' />
+          <img src={author?.image} alt='myPhoto' />
           {author.username === localStorage.getItem('username') ? (
             <div>
               <Popconfirm

@@ -37,9 +37,25 @@ const registration = async (user) => {
         },
       },
     );
+    return 'f';
   } catch (error) {
     console.error('Ошибка при регистрации пользователя:', error);
   }
 };
 
-export { getCountArticles, login, registration };
+const deleteArticle = async (slug, jwt) => {
+  try {
+    const res = await axios.delete(`https://blog.kata.academy/api/articles/${slug}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${jwt}`,
+      },
+    });
+    return res;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to delete article');
+  }
+};
+
+export { getCountArticles, login, registration, deleteArticle };

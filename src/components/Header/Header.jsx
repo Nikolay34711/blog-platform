@@ -2,12 +2,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from '../../Redux/slice/sliceAuthentication';
 import './Header.scss';
+import { useEffect } from 'react';
 
 export default function Header() {
-  const { jwt, username, image } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
   const nav = useNavigate();
-  console.log(image);
+  const dispatch = useDispatch();
+  const { jwt, username, image } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (!jwt) {
+      nav('/sign-in');
+    }
+  }, [jwt, nav]);
 
   const handleLogOut = (e) => {
     e.preventDefault();
@@ -25,9 +31,9 @@ export default function Header() {
             <h2>
               <Link to='/'>RealWorld Blog</Link>
             </h2>
-            <button className='btn-create'>
-              <Link to='/new-article'>create article</Link>
-            </button>
+            <Link to='/new-article'>
+              <button className='btn-create'>create article</button>
+            </Link>
             <Link to='/profile'>
               <span className='name'>{username}</span>
             </Link>

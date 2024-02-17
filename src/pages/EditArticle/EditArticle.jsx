@@ -75,7 +75,7 @@ export default function EditArticle() {
   return (
     <div className='create-article'>
       <h2>Edit article</h2>
-      {upArticle && <Alert type='success' message='article update!' />}
+      {upArticle && <Alert type='success' message='article update' />}
       <form className='create-article' onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor='title'>Title</label>
         {errors.title && <span className='error'>Title is required</span>}
