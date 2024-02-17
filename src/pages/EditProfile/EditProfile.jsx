@@ -4,8 +4,9 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { message } from 'antd';
 import './EditProfile.scss';
+import { updateProfile } from '../../services/services';
 
 export default function EditProfile() {
   const { jwt, username, email } = useSelector((state) => state.user);
@@ -38,22 +39,13 @@ export default function EditProfile() {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
-      const response = await axios.put(
-        'https://blog.kata.academy/api/user',
-        { user: { ...data } },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${jwt}`,
-          },
-        },
-      );
+      await updateProfile(data, jwt);
       reset();
-      console.log('Profile Updated:', response.data);
+      message.info('profile updated');
     } catch (error) {
-      console.error('Error updating profile:', error);
+      console.error('Error deleting article:', error);
+      message.error('Failed to update profile');
     }
   };
 

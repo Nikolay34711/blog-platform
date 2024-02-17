@@ -1,30 +1,28 @@
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { format } from 'date-fns';
 import { Popconfirm, message } from 'antd';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import ReactMarkdown from 'react-markdown';
-import { formatDate } from 'date-fns';
+import formattedDate from '../../utils/formattedDate';
 import { deleteArticle } from '../../services/services';
-import heart from './heart.svg';
+import noLike from '../../icon/noLike.svg';
 import './ArticlePage.scss';
 
 export default function ArticlesPage() {
   const nav = useNavigate();
-  const { jwt } = useSelector((state) => state.user);
   const { slug } = useParams();
+  const { jwt } = useSelector((state) => state.user);
   const { articles } = useSelector((state) => state.articles);
 
   const article = articles.find((article) => article.slug === slug);
-
   const { title, description, author, createdAt, tagList, favoritesCount, body } = article;
 
   async function confirm() {
     try {
       await deleteArticle(slug, jwt);
       message.info('article deleted');
-      setTimeout(() => nav('/'), 2000);
+      setTimeout(() => nav('/'), 1000);
     } catch (error) {
       console.error('Error deleting article:', error);
       message.error('Failed to delete article');
@@ -40,7 +38,7 @@ export default function ArticlesPage() {
       <div className='header-article'>
         <div className='title'>
           {<h2>{title}</h2>}
-          <img src={heart} alt='likes' />
+          <img src={noLike} alt='likes' />
           <span>{favoritesCount}</span>
           {tagList.map((tag) => {
             return (
@@ -54,7 +52,7 @@ export default function ArticlesPage() {
           <span>
             {' '}
             <span className='name'>{author.username}</span>
-            <span>{formatDate(createdAt)}</span>
+            <span>{formattedDate(createdAt)}</span>
           </span>
           <img src={author?.image} alt='myPhoto' />
           {author.username === localStorage.getItem('username') ? (

@@ -45,7 +45,7 @@ const registration = async (user) => {
 
 const deleteArticle = async (slug, jwt) => {
   try {
-    const res = await axios.delete(`https://blog.kata.academy/api/articles/${slug}`, {
+    const res = await axios.delete(`${BASE_URL}articles/${slug}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Token ${jwt}`,
@@ -58,4 +58,77 @@ const deleteArticle = async (slug, jwt) => {
   }
 };
 
-export { getCountArticles, login, registration, deleteArticle };
+const createArticle = async (data, jwt) => {
+  const validData = {
+    article: {
+      title: data.title,
+      description: data.description,
+      body: data.body,
+      tagList: data.tags.map((tag) => tag.tag),
+    },
+  };
+  try {
+    const res = await axios.post(`${BASE_URL}articles`, validData, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${jwt}`,
+      },
+    });
+    return res;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to add article');
+  }
+};
+
+const updateArticle = async (data, jwt, slug) => {
+  const validData = {
+    article: {
+      title: data.title,
+      description: data.description,
+      body: data.body,
+      tagList: data.tags.map((tag) => tag.tag),
+    },
+  };
+  try {
+    const res = await axios.put(`${BASE_URL}articles/${slug}`, validData, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${jwt}`,
+      },
+    });
+    return res;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to update article');
+  }
+};
+
+const updateProfile = async (data, jwt) => {
+  try {
+    const response = await axios.put(
+      `${BASE_URL}user`,
+      { user: { ...data } },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${jwt}`,
+        },
+      },
+    );
+    return response;
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    throw new Error('Failed to update profile');
+  }
+};
+
+export {
+  getCountArticles,
+  login,
+  registration,
+  deleteArticle,
+  createArticle,
+  updateArticle,
+  updateProfile,
+};

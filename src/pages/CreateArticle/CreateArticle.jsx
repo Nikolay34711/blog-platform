@@ -1,17 +1,14 @@
 import { useForm, useFieldArray } from 'react-hook-form';
-import axios from 'axios';
+import { message } from 'antd';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { createArticle } from '../../services/services';
 import './CreateArticle.scss';
-import { Alert } from 'antd';
 
 export default function CreateArticle() {
-  const [addArticle, setAddArticle] = useState(false);
-
-  const { jwt } = useSelector((state) => state.user);
-
   const nav = useNavigate();
+  const { jwt } = useSelector((state) => state.user);
 
   const {
     register,
@@ -34,25 +31,13 @@ export default function CreateArticle() {
   };
 
   const onSubmit = async (data) => {
-    const validData = {
-      article: {
-        title: data.title,
-        description: data.description,
-        body: data.body,
-        tagList: data.tags.map((tag) => tag.tag),
-      },
-    };
     try {
-      await axios.post('https://blog.kata.academy/api/articles', validData, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${jwt}`,
-        },
-      });
-      setAddArticle(true);
+      await createArticle(data, jwt);
+      message.info('article added');
       reset();
     } catch (error) {
-      console.error(error);
+      console.error('Error deleting article:', error);
+      message.error('Failed to add article');
     }
   };
 
@@ -66,7 +51,7 @@ export default function CreateArticle() {
   return (
     <div className='create-article'>
       <h2>Create new article</h2>
-      {addArticle && <Alert type='success' message='article add' />}
+
       <form className='create-article' onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor='title'>Title</label>
         {errors.title && <span className='error'>Title is required</span>}
