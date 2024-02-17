@@ -73,21 +73,21 @@ export default function CreateArticle() {
           {...register('title', { required: true })}
         />
 
-        <label htmlFor='descr'>Short description</label>
-        {errors.shortDescription && <span className='error'>Short description is required</span>}
+        <label htmlFor='description'>Short description</label>
+        {errors.description && <span className='error'>Short description is required</span>}
         <input
           className='input'
-          id='descr'
+          id='description'
           type='text'
           placeholder='Short description'
           {...register('description', { required: true })}
         />
 
-        <label htmlFor='text'>Text</label>
-        {errors.text && <span className='error'>Text is required</span>}
+        <label htmlFor='body'>Text</label>
+        {errors.body && <span className='error'>Text is required</span>}
         <textarea
           name='text'
-          id='text'
+          id='body'
           cols='30'
           rows='10'
           placeholder='Text'

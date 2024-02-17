@@ -25,18 +25,20 @@ export default function EditProfile() {
       .required('Email is required')
       .lowercase('Email must be lowercase'),
     password: yup.string().min(6, 'Password must be at least 6 characters'),
-    avatarImage: yup.string().url('Avatar image URL is invalid'),
+    image: yup.string().url('Avatar image URL is invalid'),
   });
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
   const onSubmit = async (data) => {
+    console.log(data);
     try {
       const response = await axios.put(
         'https://blog.kata.academy/api/user',
@@ -48,6 +50,7 @@ export default function EditProfile() {
           },
         },
       );
+      reset();
       console.log('Profile Updated:', response.data);
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -86,8 +89,8 @@ export default function EditProfile() {
 
         <label>
           Avatar image (URL)
-          {errors.avatarImage && <span className='error'>{errors.avatarImage.message}</span>}
-          <input type='url' placeholder='Avatar image URL' {...register('avatarImage')} />
+          {errors.image && <span className='error'>{errors.image.message}</span>}
+          <input type='url' placeholder='Avatar image URL' {...register('image')} />
         </label>
         <button type='submit'>Save</button>
       </form>

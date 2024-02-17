@@ -1,13 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import logo from './Rectangle 1.svg';
 import { setAuth } from '../../Redux/slice/sliceAuthentication';
 import './Header.scss';
 
 export default function Header() {
-  const { jwt, username } = useSelector((state) => state.user);
+  const { jwt, username, image } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const nav = useNavigate();
+  console.log(image);
 
   const handleLogOut = (e) => {
     e.preventDefault();
@@ -32,7 +32,11 @@ export default function Header() {
               <span className='name'>{username}</span>
             </Link>
             <Link to='/profile'>
-              <img src={logo} alt='myPhoto' />
+              <img
+                style={{ width: '46px', height: '46px', borderRadius: '5px' }}
+                src={image}
+                alt='myPhoto'
+              />
             </Link>
             <button className='btn-out' onClick={handleLogOut}>
               Log out

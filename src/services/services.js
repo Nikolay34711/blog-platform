@@ -17,6 +17,7 @@ const login = async (user) => {
     localStorage.setItem('token', res.data.user.token);
     localStorage.setItem('username', res.data.user.username);
     localStorage.setItem('email', res.data.user.email);
+    localStorage.setItem('image', res.data.user.image);
     return res;
   } catch (error) {
     console.error(error);

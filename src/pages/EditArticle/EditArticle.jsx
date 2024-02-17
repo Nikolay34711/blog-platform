@@ -2,10 +2,12 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Alert } from 'antd';
 import '../CreateArticle/CreateArticle.scss';
 
 export default function EditArticle() {
+  const [upArticle, setUpArticle] = useState(false);
   const { jwt } = useSelector((state) => state.user);
   const { slug } = useParams();
   const { articles } = useSelector((state) => state.articles);
@@ -51,8 +53,9 @@ export default function EditArticle() {
           Authorization: `Token ${jwt}`,
         },
       });
-      nav('/');
+      setUpArticle(true);
     } catch (error) {
+      setUpArticle(false);
       console.error(error);
     }
   };
@@ -72,6 +75,7 @@ export default function EditArticle() {
   return (
     <div className='create-article'>
       <h2>Edit article</h2>
+      {upArticle && <Alert type='success' message='article update!' />}
       <form className='create-article' onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor='title'>Title</label>
         {errors.title && <span className='error'>Title is required</span>}
@@ -84,22 +88,22 @@ export default function EditArticle() {
           {...register('title', { required: true })}
         />
 
-        <label htmlFor='descr'>Short description</label>
-        {errors.shortDescription && <span className='error'>Short description is required</span>}
+        <label htmlFor='description'>Short description</label>
+        {errors.description && <span className='error'>Short description is required</span>}
         <input
           className='input'
-          id='descr'
+          id='description'
           type='text'
           defaultValue={description}
           placeholder='Short description'
           {...register('description', { required: true })}
         />
 
-        <label htmlFor='text'>Text</label>
-        {errors.text && <span className='error'>Text is required</span>}
+        <label htmlFor='body'>Text</label>
+        {errors.body && <span className='error'>Text is required</span>}
         <textarea
           name='text'
-          id='text'
+          id='body'
           cols='30'
           rows='10'
           placeholder='Text'
