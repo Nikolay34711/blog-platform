@@ -13,16 +13,15 @@
   }
 
   .title {
-    display: flex;
+    position: relative;
+    color: rgb(24, 144, 255);
     align-items: center;
     max-width: 530px;
     max-height: 60px;
     margin-left: 20px;
     margin-top: 10px;
-    flex-wrap: wrap;
 
     h2 {
-      color: rgb(24, 144, 255);
       display: inline;
       font-weight: 500;
       margin: 0;
@@ -38,10 +37,13 @@
       border: 2px solid rgba(0, 0, 0, 0.5);
       margin-right: 5px;
     }
-    img {
-      width: 16px;
-      height: 16px;
-      margin: 0 5px 0 10px;
+    .like {
+      position: relative;
+      img {
+        width: 16px;
+        height: 16px;
+        margin: 0 5px 0 10px;
+      }
     }
   }
 

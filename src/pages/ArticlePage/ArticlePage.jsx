@@ -77,15 +77,19 @@ export default function ArticlesPage() {
       <div className='header-article'>
         <div className='title'>
           {<h2>{title}</h2>}
-          <img src={favoriteBool ? like : noLike} alt='likes' onClick={handleLike} />
-          <span>{countLike}</span>
-          {tagList?.map((tag) => {
-            return (
-              <span key={uuidv4()} className='tag'>
-                {cutTag(tag)}
-              </span>
-            );
-          })}
+          <span className='like'>
+            <img src={favoriteBool ? like : noLike} alt='likes' onClick={handleLike} />
+            <span>{countLike}</span>
+          </span>
+          <div>
+            {tagList?.map((tag) => {
+              return (
+                <span key={uuidv4()} className='tag'>
+                  {cutTag(tag)}
+                </span>
+              );
+            })}
+          </div>
         </div>
         <div className='avatar'>
           <span className='container-avatar'>

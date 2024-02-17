@@ -6,8 +6,8 @@ import formattedDate from '../../utils/formattedDate';
 import { useSelector } from 'react-redux';
 import { Liked, disLiked } from '../../services/services';
 import { cutTag, cutText } from '../../utils/cutText';
-import './Article.scss';
 import { useState } from 'react';
+import './Article.scss';
 
 export default function Article({ article }) {
   const { jwt } = useSelector((state) => state.user);
@@ -46,15 +46,19 @@ export default function Article({ article }) {
               <Link to={`/articles/${slug}`}>{cutText(title)}</Link>
             </h2>
           }
-          <img src={favoriteBool ? like : noLike} alt='likes' onClick={handleLike} />
-          <span>{countLike}</span>
-          {tagList.map((tag) => {
-            return (
-              <span key={uuidv4()} className='tag'>
-                {cutTag(tag)}
-              </span>
-            );
-          })}
+          <span className='like'>
+            <img src={favoriteBool ? like : noLike} alt='likes' onClick={handleLike} />
+            <span>{countLike}</span>
+          </span>
+          <div>
+            {tagList.map((tag) => {
+              return (
+                <span key={uuidv4()} className='tag'>
+                  {cutTag(tag)}
+                </span>
+              );
+            })}
+          </div>
         </div>
         <div className='avatar'>
           <span className='container-avatar'>
