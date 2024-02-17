@@ -10,7 +10,15 @@ const initialState = {
 
 export const sliceArticles = createAsyncThunk('articles/sliceArticles', async (offset) => {
   try {
-    const res = await axios.get(`https://blog.kata.academy/api/articles?limit=10&offset=${offset}`);
+    const res = await axios.get(
+      `https://blog.kata.academy/api/articles?limit=10&offset=${offset}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${localStorage.getItem('token')}`,
+        },
+      },
+    );
     return res.data.articles;
   } catch (error) {
     throw error.message;

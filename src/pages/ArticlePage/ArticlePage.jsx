@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ReactMarkdown from 'react-markdown';
 import formattedDate from '../../utils/formattedDate';
 import { deleteArticle } from '../../services/services';
+import like from '../../icon/like.svg';
 import noLike from '../../icon/noLike.svg';
 import './ArticlePage.scss';
 
@@ -16,7 +17,8 @@ export default function ArticlesPage() {
   const { articles } = useSelector((state) => state.articles);
 
   const article = articles.find((article) => article.slug === slug);
-  const { title, description, author, createdAt, tagList, favoritesCount, body } = article;
+  const { title, description, author, favorited, createdAt, tagList, favoritesCount, body } =
+    article;
 
   async function confirm() {
     try {
@@ -38,7 +40,7 @@ export default function ArticlesPage() {
       <div className='header-article'>
         <div className='title'>
           {<h2>{title}</h2>}
-          <img src={noLike} alt='likes' />
+          <img src={favorited ? like : noLike} alt='likes' />
           <span>{favoritesCount}</span>
           {tagList.map((tag) => {
             return (

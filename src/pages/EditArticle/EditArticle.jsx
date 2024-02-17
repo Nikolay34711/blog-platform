@@ -49,6 +49,7 @@ export default function EditArticle() {
     if (!jwt) {
       nav('/sign-in');
     }
+    console.log();
 
     if (tagList.length) {
       tagList.map((tag) => append({ tag: tag }));
