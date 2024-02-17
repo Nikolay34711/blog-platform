@@ -85,7 +85,7 @@ export default function ArticlesPage() {
             {tagList?.map((tag) => {
               return (
                 <li key={uuidv4()} className='tag'>
-                  {truncate(tag)}
+                  {truncate(tag, 10)}
                 </li>
               );
             })}
@@ -120,8 +120,10 @@ export default function ArticlesPage() {
           )}
         </div>
       </div>
-      <p>{truncate(description)}</p>
-      <ReactMarkdown>{body}</ReactMarkdown>
+      <div className='descr'>
+        <p>{truncate(description)}</p>
+        <ReactMarkdown>{body}</ReactMarkdown>
+      </div>
     </div>
   );
 }
