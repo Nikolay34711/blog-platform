@@ -36,6 +36,7 @@
       font-size: 13px;
       border: 2px solid rgba(0, 0, 0, 0.5);
       margin-right: 5px;
+      padding: 2px;
     }
     .like {
       position: relative;
@@ -79,9 +80,9 @@
     }
 
     .btn-edit {
-      position: absolute;
-      top: 60px;
-      right: 30px;
+      position: relative;
+      top: 90px;
+      right: 110px;
       width: 65.23px;
       height: 31.1px;
       box-sizing: border-box;
@@ -92,9 +93,9 @@
       cursor: pointer;
     }
     .btn-del {
-      position: absolute;
-      top: 60px;
-      left: -30px;
+      position: relative;
+      top: 120px;
+      right: 200px;
       width: 78px;
       height: 31.1px;
       border: 1px solid rgb(245, 34, 45);
