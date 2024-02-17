@@ -5,20 +5,37 @@ import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import ReactMarkdown from 'react-markdown';
 import formattedDate from '../../utils/formattedDate';
-import { deleteArticle } from '../../services/services';
+import { Liked, deleteArticle, disLiked, getArticle } from '../../services/services';
 import like from '../../icon/like.svg';
 import noLike from '../../icon/noLike.svg';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import './ArticlePage.scss';
 
 export default function ArticlesPage() {
   const nav = useNavigate();
   const { slug } = useParams();
   const { jwt } = useSelector((state) => state.user);
-  const { articles } = useSelector((state) => state.articles);
+  const [article, setArticle] = useState({});
 
-  const article = articles.find((article) => article.slug === slug);
-  const { title, description, author, favorited, createdAt, tagList, favoritesCount, body } =
-    article;
+  const { title, description, author, createdAt, tagList, body } = article;
+  const [favoriteBool, setFavoriteBool] = useState(false);
+  const [countLike, setCountLike] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getArticle(jwt, slug);
+        const { favorited, favoritesCount } = res.data.article;
+        setArticle(res.data.article);
+        setFavoriteBool(favorited);
+        setCountLike(favoritesCount);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [jwt, slug]);
 
   async function confirm() {
     try {
@@ -35,14 +52,34 @@ export default function ArticlesPage() {
     message.error('cancel');
   }
 
+  const handleLike = async () => {
+    if (favoriteBool) {
+      try {
+        await Liked(jwt, slug);
+        setFavoriteBool(false);
+        setCountLike(countLike - 1);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        await disLiked(jwt, slug);
+        setFavoriteBool(true);
+        setCountLike(countLike + 1);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   return (
     <div className='article-page'>
       <div className='header-article'>
         <div className='title'>
           {<h2>{title}</h2>}
-          <img src={favorited ? like : noLike} alt='likes' />
-          <span>{favoritesCount}</span>
-          {tagList.map((tag) => {
+          <img src={favoriteBool ? like : noLike} alt='likes' onClick={handleLike} />
+          <span>{countLike}</span>
+          {tagList?.map((tag) => {
             return (
               <span key={uuidv4()} className='tag'>
                 {tag}
@@ -53,11 +90,11 @@ export default function ArticlesPage() {
         <div className='avatar'>
           <span>
             {' '}
-            <span className='name'>{author.username}</span>
+            <span className='name'>{author?.username}</span>
             <span>{formattedDate(createdAt)}</span>
           </span>
           <img src={author?.image} alt='myPhoto' />
-          {author.username === localStorage.getItem('username') ? (
+          {author?.username === localStorage.getItem('username') ? (
             <div>
               <Popconfirm
                 title='Are you sure you want to delete this article?'

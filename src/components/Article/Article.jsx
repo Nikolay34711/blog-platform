@@ -3,8 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import noLike from '../../icon/noLike.svg';
 import like from '../../icon/like.svg';
 import formattedDate from '../../utils/formattedDate';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { Liked, disLiked } from '../../services/services';
 import './Article.scss';
 import { useState } from 'react';
 
@@ -19,35 +19,19 @@ export default function Article({ article }) {
   const handleLike = async () => {
     if (favoriteBool) {
       try {
-        await axios.request({
-          url: `https://blog.kata.academy/api/articles/${slug}/favorite`,
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${jwt}`,
-          },
-        });
+        await Liked(jwt, slug);
         setFavoriteBool(false);
         setCountLike(countLike - 1);
       } catch (error) {
-        console.error(error);
-        throw new Error('Failed to add article to favorites');
+        console.log(error);
       }
     } else {
       try {
-        await axios.request({
-          url: `https://blog.kata.academy/api/articles/${slug}/favorite`,
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${jwt}`,
-          },
-        });
+        await disLiked(jwt, slug);
         setFavoriteBool(true);
         setCountLike(countLike + 1);
       } catch (error) {
         console.error(error);
-        throw new Error('Failed to add article to favorites');
       }
     }
   };

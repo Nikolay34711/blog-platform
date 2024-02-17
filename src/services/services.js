@@ -139,6 +139,54 @@ const updateProfile = async (data, jwt) => {
   }
 };
 
+const Liked = async (jwt, slug) => {
+  try {
+    const res = await axios.request({
+      url: `https://blog.kata.academy/api/articles/${slug}/favorite`,
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${jwt}`,
+      },
+    });
+    return res;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to add article to favorites');
+  }
+};
+
+const disLiked = async (jwt, slug) => {
+  try {
+    const res = await axios.request({
+      url: `https://blog.kata.academy/api/articles/${slug}/favorite`,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${jwt}`,
+      },
+    });
+    return res;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to add article to favorites');
+  }
+};
+
+const getArticle = async (jwt, slug) => {
+  try {
+    const res = await axios.get(`https://blog.kata.academy/api/articles/${slug}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${jwt}`,
+      },
+    });
+    return res;
+  } catch (error) {
+    throw error.message;
+  }
+};
+
 export {
   getCountArticles,
   login,
@@ -147,4 +195,7 @@ export {
   createArticle,
   updateArticle,
   updateProfile,
+  Liked,
+  disLiked,
+  getArticle,
 };
