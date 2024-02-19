@@ -34,15 +34,26 @@ export default function CreateArticle() {
   };
 
   const onSubmit = async (data) => {
+    const trimmedData = {
+      ...data,
+      title: data.title.trim(),
+      description: data.description.trim(),
+      body: data.body.trim(),
+      tags: data.tags.map((tag) => (typeof tag === 'string' ? tag.trim() : tag)),
+    };
+
     try {
-      if (!/^(?![\s\n]*$).+/.test(data.title) || !/^(?![\s\n]*$).+/.test(data.body)) {
-        message.error('Title and body cannot be empty or contain only spaces');
+      if (
+        !/^(?![\s\n]*$).+/.test(trimmedData.title) ||
+        !/^(?![\s\n]*$).+/.test(trimmedData.body) ||
+        !/^(?![\s\n]*$).+/.test(trimmedData.description)
+      ) {
+        message.error('Data cannot be empty or contain only spaces');
         return;
       }
-
-      await createArticle(data, jwt);
+      await createArticle(trimmedData, jwt);
       message.info('Article added');
-      reset();
+      setTimeout(() => reset(), 1000);
     } catch (error) {
       console.error('Error creating article:', error);
       message.error('Failed to add article');

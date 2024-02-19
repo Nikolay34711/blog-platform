@@ -92,11 +92,15 @@ export default function ArticlesPage() {
           </span>
           <ul>
             {tagList?.map((tag) => {
-              return (
-                <li key={uuidv4()} className='tag'>
-                  {truncate(tag, 7)}
-                </li>
-              );
+              const trimmedTag = tag.trim();
+              if (trimmedTag !== '') {
+                return (
+                  <li key={uuidv4()} className='tag'>
+                    {truncate(trimmedTag, 12)}
+                  </li>
+                );
+              }
+              return null;
             })}
           </ul>
         </div>

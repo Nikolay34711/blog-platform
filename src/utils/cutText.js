@@ -7,7 +7,7 @@ export function truncate(str, maxLength) {
       if (lastSpaceIndex !== -1) {
         trimmedText = trimmedText.substring(0, lastSpaceIndex);
       }
-      return trimmedText + '...';
+      return trimmedText + '';
     }
   }
   return str;

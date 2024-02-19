@@ -35,7 +35,7 @@ export default function Header() {
             </Link>
             <Link to='/profile'>
               <img
-                style={{ width: '46px', height: '46px', borderRadius: '5px' }}
+                style={{ width: '46px', height: '46px', borderRadius: '50%' }}
                 src={image}
                 alt='myPhoto'
               />

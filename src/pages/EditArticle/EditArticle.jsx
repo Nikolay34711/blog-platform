@@ -38,12 +38,29 @@ export default function EditArticle() {
   };
 
   const onSubmit = async (data) => {
+    const trimmedData = {
+      ...data,
+      title: data.title.trim(),
+      description: data.description.trim(),
+      body: data.body.trim(),
+      tags: data.tags.map((tag) => (typeof tag === 'string' ? tag.trim() : tag)),
+    };
+
     try {
-      await updateArticle(data, jwt, slug);
-      message.info('article updated');
+      if (
+        !/^(?![\s\n]*$).+/.test(trimmedData.title) ||
+        !/^(?![\s\n]*$).+/.test(trimmedData.body) ||
+        !/^(?![\s\n]*$).+/.test(trimmedData.description)
+      ) {
+        message.error('Data cannot be empty or contain only spaces');
+        return;
+      }
+      console.log(data);
+      await updateArticle(trimmedData, jwt, slug);
+      message.info('Article update');
     } catch (error) {
-      console.error('Error deleting article:', error);
-      message.error('Failed to add article');
+      console.error('Error update article:', error);
+      message.error('Failed to update article');
     }
   };
 
