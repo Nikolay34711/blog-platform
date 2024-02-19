@@ -1,6 +1,8 @@
 // Библиотеки
 import { message } from 'antd';
 import axios from 'axios';
+// Кастомные функции
+import utilsCheckForRegistration from '../utils/utilsCheckForRegistration';
 
 // Корневой URL
 const BASE_URL = 'https://blog.kata.academy/api/';
@@ -45,16 +47,7 @@ const registration = async (user) => {
     );
     return res;
   } catch (error) {
-    const res = JSON.parse(error.response.request.response);
-    if ('username' in res.errors && 'email' in res.errors) {
-      message.error('This email address and nickname are already registered');
-    } else if ('username' in res.errors) {
-      message.error('this nickname is already taken');
-    } else if ('email' in res.errors) {
-      message.error('This email is already registered');
-    } else {
-      message.error('try again or check data');
-    }
+    utilsCheckForRegistration(error);
     console.error('Ошибка при регистрации пользователя:', error);
     throw new Error('Failed to create account');
   }
