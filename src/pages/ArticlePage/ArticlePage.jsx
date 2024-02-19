@@ -13,6 +13,7 @@ import { truncate } from '../../utils/cutText';
 // Стили + картинки
 import noLike from '../../icon/noLike.svg';
 import like from '../../icon/like.svg';
+import icon from '../../icon/free-icon-stopwatch-272653.png';
 import './ArticlePage.scss';
 
 export default function ArticlesPage() {
@@ -112,7 +113,7 @@ export default function ArticlesPage() {
             <span className='name'>{author?.username}</span>
             <span>{formattedDate(createdAt)}</span>
           </span>
-          <img src={author?.image} alt='myPhoto' />
+          <img src={author?.image ? author.image : icon} alt='avatar' />
           {author?.username === localStorage.getItem('username') ? (
             <div>
               <Popconfirm

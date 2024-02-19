@@ -12,6 +12,7 @@ import { truncate } from '../../utils/cutText';
 // Стили + картинки
 import noLike from '../../icon/noLike.svg';
 import like from '../../icon/like.svg';
+import icon from '../../icon/free-icon-stopwatch-272653.png';
 import './Article.scss';
 
 export default function Article({ article }) {
@@ -83,7 +84,7 @@ export default function Article({ article }) {
             <span className='name'>{author?.username}</span>
             <span>{formattedDate(createdAt)}</span>
           </span>
-          <img src={author?.image} alt='avatar' />
+          <img src={author?.image ? author.image : icon} alt='avatar' />
         </div>
       </div>
       <p>{truncate(description, 30)}</p>
