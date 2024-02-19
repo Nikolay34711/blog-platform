@@ -1,6 +1,9 @@
+// Библиотеки
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+// Функции
 import { setAuth } from '../../Redux/slice/sliceAuthentication';
+// Стили
 import './Header.scss';
 
 export default function Header() {

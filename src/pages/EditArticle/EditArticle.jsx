@@ -1,9 +1,11 @@
+// Библиотеки
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { updateArticle } from '../../services/services';
 import { message } from 'antd';
+// Функции
+import { updateArticle } from '../../services/services';
 import '../CreateArticle/CreateArticle.scss';
 
 export default function EditArticle() {
@@ -49,7 +51,6 @@ export default function EditArticle() {
     if (!jwt) {
       nav('/sign-in');
     }
-    console.log();
 
     if (tagList.length) {
       tagList.map((tag) => append({ tag: tag }));

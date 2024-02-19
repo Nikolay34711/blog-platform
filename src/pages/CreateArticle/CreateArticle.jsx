@@ -1,9 +1,12 @@
+// Библиотеки
 import { useForm, useFieldArray } from 'react-hook-form';
-import { message } from 'antd';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { message } from 'antd';
+// Функции
 import { createArticle } from '../../services/services';
+// Стили
 import './CreateArticle.scss';
 
 export default function CreateArticle() {

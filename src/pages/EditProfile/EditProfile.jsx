@@ -1,3 +1,4 @@
+// Библиотеки
 import React, { useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -5,7 +6,9 @@ import * as yup from 'yup';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
+// Функции
 import { updateProfile } from '../../services/services';
+// Стили
 import './EditProfile.scss';
 
 export default function EditProfile() {

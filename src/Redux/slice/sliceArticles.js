@@ -8,6 +8,7 @@ const initialState = {
   error: null,
 };
 
+// Функция для запроса всех постов
 export const sliceArticles = createAsyncThunk('articles/sliceArticles', async (offset) => {
   try {
     const res = await axios.get(

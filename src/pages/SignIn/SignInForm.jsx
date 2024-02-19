@@ -1,10 +1,13 @@
+// Библиотеки
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { setAuth } from '../../Redux/slice/sliceAuthentication';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { login } from '../../services/services';
 import { message } from 'antd';
+// Функции
+import { login } from '../../services/services';
+import { setAuth } from '../../Redux/slice/sliceAuthentication';
+// Стили
 import './SignInForm.scss';
 
 export default function SignInForm() {

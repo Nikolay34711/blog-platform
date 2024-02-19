@@ -1,8 +1,11 @@
+// Библиотеки
 import { message } from 'antd';
 import axios from 'axios';
 
+// Корневой URL
 const BASE_URL = 'https://blog.kata.academy/api/';
 
+// Функция для запроса кол-во всех постов
 const getCountArticles = async () => {
   try {
     const res = await axios.get(`${BASE_URL}articles`);
@@ -12,6 +15,7 @@ const getCountArticles = async () => {
   }
 };
 
+// Функция для входа в аккаунт
 const login = async (user) => {
   try {
     const res = await axios.post(`${BASE_URL}users/login`, { user });
@@ -25,6 +29,7 @@ const login = async (user) => {
   }
 };
 
+// Функция для запроса на регистрацию
 const registration = async (user) => {
   try {
     const res = await axios.post(
@@ -55,6 +60,7 @@ const registration = async (user) => {
   }
 };
 
+// Функция для запроса на удаления поста
 const deleteArticle = async (slug, jwt) => {
   try {
     const res = await axios.delete(`${BASE_URL}articles/${slug}`, {
@@ -70,6 +76,7 @@ const deleteArticle = async (slug, jwt) => {
   }
 };
 
+// Функция для запроса на создания поста
 const createArticle = async (data, jwt) => {
   const validData = {
     article: {
@@ -93,6 +100,7 @@ const createArticle = async (data, jwt) => {
   }
 };
 
+// Функция для запроса обновления поста
 const updateArticle = async (data, jwt, slug) => {
   const validData = {
     article: {
@@ -116,6 +124,7 @@ const updateArticle = async (data, jwt, slug) => {
   }
 };
 
+// Функция для запроса обновления профиля
 const updateProfile = async (data, jwt) => {
   try {
     const response = await axios.put(
@@ -139,6 +148,7 @@ const updateProfile = async (data, jwt) => {
   }
 };
 
+// Функция для запроса на добавления лайка
 const Liked = async (jwt, slug) => {
   try {
     const res = await axios.request({
@@ -156,6 +166,7 @@ const Liked = async (jwt, slug) => {
   }
 };
 
+// Функция для запроса на удаления лайка
 const disLiked = async (jwt, slug) => {
   try {
     const res = await axios.request({
@@ -173,6 +184,7 @@ const disLiked = async (jwt, slug) => {
   }
 };
 
+// Функция для запроса на получения конкретного поста
 const getArticle = async (jwt, slug) => {
   try {
     const res = await axios.get(`https://blog.kata.academy/api/articles/${slug}`, {
@@ -187,6 +199,7 @@ const getArticle = async (jwt, slug) => {
   }
 };
 
+// Экспортируем все функции
 export {
   getCountArticles,
   login,

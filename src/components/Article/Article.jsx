@@ -1,17 +1,23 @@
+// Библиотеки
 import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import noLike from '../../icon/noLike.svg';
-import like from '../../icon/like.svg';
-import formattedDate from '../../utils/formattedDate';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
+
+// Кастомные функции
+import formattedDate from '../../utils/formattedDate';
 import { Liked, disLiked } from '../../services/services';
 import { truncate } from '../../utils/cutText';
-import { useState } from 'react';
+
+// Стили + картинки
+import noLike from '../../icon/noLike.svg';
+import like from '../../icon/like.svg';
 import './Article.scss';
 
 export default function Article({ article }) {
   const nav = useNavigate();
   const { jwt } = useSelector((state) => state.user);
+
   const { title, description, author, favorited, createdAt, tagList, favoritesCount, slug } =
     article;
 
@@ -59,7 +65,7 @@ export default function Article({ article }) {
             {tagList.map((tag) => {
               return (
                 <li key={uuidv4()} className='tag'>
-                  {truncate(tag)}
+                  {truncate(tag, 7)}
                 </li>
               );
             })}

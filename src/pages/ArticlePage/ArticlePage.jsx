@@ -1,26 +1,30 @@
+// Библиотеки
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Popconfirm, message } from 'antd';
 import { Link } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import ReactMarkdown from 'react-markdown';
+import { Popconfirm, message } from 'antd';
+import { v4 as uuidv4 } from 'uuid';
+// Функции
 import formattedDate from '../../utils/formattedDate';
 import { Liked, deleteArticle, disLiked, getArticle } from '../../services/services';
-import like from '../../icon/like.svg';
-import noLike from '../../icon/noLike.svg';
 import { useEffect, useState } from 'react';
-import './ArticlePage.scss';
 import { truncate } from '../../utils/cutText';
+// Стили + картинки
+import noLike from '../../icon/noLike.svg';
+import like from '../../icon/like.svg';
+import './ArticlePage.scss';
 
 export default function ArticlesPage() {
   const nav = useNavigate();
   const { slug } = useParams();
   const { jwt } = useSelector((state) => state.user);
+
   const [article, setArticle] = useState({});
+  const [countLike, setCountLike] = useState(0);
+  const [favoriteBool, setFavoriteBool] = useState(false);
 
   const { title, description, author, createdAt, tagList, body } = article;
-  const [favoriteBool, setFavoriteBool] = useState(false);
-  const [countLike, setCountLike] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,6 +61,7 @@ export default function ArticlesPage() {
       nav('/sign-in');
       return;
     }
+
     if (favoriteBool) {
       try {
         await Liked(jwt, slug);
@@ -89,7 +94,7 @@ export default function ArticlesPage() {
             {tagList?.map((tag) => {
               return (
                 <li key={uuidv4()} className='tag'>
-                  {truncate(tag, 10)}
+                  {truncate(tag, 7)}
                 </li>
               );
             })}

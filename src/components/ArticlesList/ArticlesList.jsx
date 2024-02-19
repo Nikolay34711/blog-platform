@@ -1,9 +1,12 @@
+// Библиотеки
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { CircularProgress, Alert } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
+
+// Компоненты и кастомные функции
 import { sliceArticles } from '../../Redux/slice/sliceArticles';
 import BasicPagination from '../Pagination/Pagination';
-import { v4 as uuidv4 } from 'uuid';
-import { CircularProgress, Alert } from '@mui/material';
 import Article from '../Article/Article';
 
 export default function ArticlesList() {
