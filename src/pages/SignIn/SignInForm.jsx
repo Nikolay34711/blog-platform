@@ -64,7 +64,7 @@ export default function SignInForm() {
           Login
         </button>
         <span>
-          Dont't have an account? <Link to='/sign-up'>Sign Up.</Link>
+        Don&apos;t have an account? <Link to='/sign-up'>Sign Up.</Link>
         </span>
       </form>
     </div>
