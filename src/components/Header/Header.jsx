@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // Функции
 import { setAuth } from '../../Redux/slice/sliceAuthentication';
 // Стили
+import icon from '../../icon/free-icon-stopwatch-272653.png';
 import './Header.scss';
 
 export default function Header() {
@@ -36,7 +37,7 @@ export default function Header() {
             <Link to='/profile'>
               <img
                 style={{ width: '46px', height: '46px', borderRadius: '50%' }}
-                src={image}
+                src={image ? image : icon}
                 alt='myPhoto'
               />
             </Link>
