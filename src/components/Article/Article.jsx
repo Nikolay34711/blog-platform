@@ -63,15 +63,17 @@ export default function Article({ article }) {
           </span>
           <ul>
             {tagList?.map((tag) => {
-              const trimmedTag = tag.trim();
-              if (trimmedTag !== '') {
-                return (
-                  <li key={uuidv4()} className='tag'>
-                    {truncate(trimmedTag, 12)}
-                  </li>
-                );
+              if (tag && typeof tag === 'string') {
+                const trimmedTag = tag.trim();
+                if (trimmedTag !== '') {
+                  return (
+                    <li key={uuidv4()} className='tag'>
+                      {truncate(trimmedTag, 12)}
+                    </li>
+                  );
+                }
+                return null;
               }
-              return null;
             })}
           </ul>
         </div>

@@ -7,6 +7,7 @@ import { message } from 'antd';
 // Функции
 import { updateArticle } from '../../services/services';
 import '../CreateArticle/CreateArticle.scss';
+import utilsCkeckSpace from '../../utils/utilsCkeckSpace';
 
 export default function EditArticle() {
   const nav = useNavigate();
@@ -38,25 +39,8 @@ export default function EditArticle() {
   };
 
   const onSubmit = async (data) => {
-    const trimmedData = {
-      ...data,
-      title: data.title.trim(),
-      description: data.description.trim(),
-      body: data.body.trim(),
-      tags: data.tags.map((tag) => (typeof tag === 'string' ? tag.trim() : tag)),
-    };
-
     try {
-      if (
-        !/^(?![\s\n]*$).+/.test(trimmedData.title) ||
-        !/^(?![\s\n]*$).+/.test(trimmedData.body) ||
-        !/^(?![\s\n]*$).+/.test(trimmedData.description)
-      ) {
-        message.error('Data cannot be empty or contain only spaces');
-        return;
-      }
-      console.log(data);
-      await updateArticle(trimmedData, jwt, slug);
+      await updateArticle(utilsCkeckSpace(data), jwt, slug);
       message.info('Article update');
     } catch (error) {
       console.error('Error update article:', error);
