@@ -9,12 +9,8 @@ const BASE_URL = 'https://blog.kata.academy/api/';
 
 // Функция для запроса кол-во всех постов
 const getCountArticles = async () => {
-  try {
-    const res = await axios.get(`${BASE_URL}articles`);
-    return res.data.articlesCount;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axios.get(`${BASE_URL}articles`);
+  return res.data.articlesCount;
 };
 
 // Функция для входа в аккаунт
