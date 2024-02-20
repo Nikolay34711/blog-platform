@@ -1,10 +1,8 @@
-// Библиотеки
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-// Функции
 import { setPage } from '../../Redux/slice/slicePage';
 import { getCountArticles } from '../../services/services';
 
@@ -24,18 +22,24 @@ export default function BasicPagination() {
   }, [page]);
 
   useEffect(() => {
-    const currentPage = localStorage.getItem('currentPage');
-    if (currentPage) {
-      dispatch(setPage(parseInt(currentPage)));
+    const storedPage = localStorage.getItem('currentPage');
+    console.log(storedPage);
+    if (storedPage) {
+      dispatch(setPage(parseInt(storedPage)));
     }
   }, [dispatch]);
+
+  const handlePageChange = (_, num) => {
+    dispatch(setPage(num));
+    localStorage.setItem('currentPage', num);
+  };
 
   return (
     <Stack spacing={2} sx={{ justifyContent: 'center', alignItems: 'center', margin: '25px' }}>
       <Pagination
         count={Math.ceil(articlesCount / 10)}
         page={page}
-        onChange={(_, num) => dispatch(setPage(num))}
+        onChange={handlePageChange}
         color='primary'
       />
     </Stack>

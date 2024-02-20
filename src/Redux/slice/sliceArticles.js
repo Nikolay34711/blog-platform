@@ -20,6 +20,7 @@ export const sliceArticles = createAsyncThunk('articles/sliceArticles', async (o
         },
       },
     );
+    localStorage.setItem('articles', JSON.stringify(res.data.articles));
     return res.data.articles;
   } catch (error) {
     throw error.message;

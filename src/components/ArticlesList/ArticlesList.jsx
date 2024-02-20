@@ -1,23 +1,26 @@
-// Библиотеки
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { CircularProgress, Alert } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
-
-// Компоненты и кастомные функции
 import { sliceArticles } from '../../Redux/slice/sliceArticles';
-import BasicPagination from '../Pagination/Pagination';
 import Article from '../Article/Article';
-
+import BasicPagination from '../Pagination/Pagination';
 export default function ArticlesList() {
   const dispatch = useDispatch();
   const page = useSelector((state) => state.page);
   const { articles, isLoad, error } = useSelector((state) => state.articles);
 
   useEffect(() => {
-    dispatch(sliceArticles((page - 1) * 10));
-  }, [dispatch, page]);
+    const storedArticles = JSON.parse(localStorage.getItem('articles'));
+    const storedPage = localStorage.getItem('currentPage');
+    console.log(storedArticles);
 
+    if (storedArticles && storedPage) {
+      dispatch(sliceArticles((parseInt(storedPage) - 1) * 10));
+    } else {
+      dispatch(sliceArticles((page - 1) * 10));
+    }
+  }, [dispatch, page]);
   return (
     <>
       {isLoad && articles ? (
