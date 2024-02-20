@@ -13,7 +13,6 @@ export default function ArticlesList() {
   useEffect(() => {
     const storedArticles = JSON.parse(localStorage.getItem('articles'));
     const storedPage = localStorage.getItem('currentPage');
-    console.log(storedArticles);
 
     if (storedArticles && storedPage) {
       dispatch(sliceArticles((parseInt(storedPage) - 1) * 10));

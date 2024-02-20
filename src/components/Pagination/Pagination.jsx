@@ -23,7 +23,6 @@ export default function BasicPagination() {
 
   useEffect(() => {
     const storedPage = localStorage.getItem('currentPage');
-    console.log(storedPage);
     if (storedPage) {
       dispatch(setPage(parseInt(storedPage)));
     }
