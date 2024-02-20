@@ -23,6 +23,13 @@ export default function BasicPagination() {
     fetchData();
   }, [page]);
 
+  useEffect(() => {
+    const currentPage = localStorage.getItem('currentPage');
+    if (currentPage) {
+      dispatch(setPage(parseInt(currentPage)));
+    }
+  }, [dispatch]);
+
   return (
     <Stack spacing={2} sx={{ justifyContent: 'center', alignItems: 'center', margin: '25px' }}>
       <Pagination

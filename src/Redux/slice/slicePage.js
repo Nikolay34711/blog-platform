@@ -7,7 +7,9 @@ const pageNum = createSlice({
   initialState,
   reducers: {
     setPage(_, action) {
-      return action.payload;
+      const newPage = action.payload;
+      localStorage.setItem('currentPage', newPage);
+      return newPage;
     },
   },
 });

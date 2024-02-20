@@ -127,9 +127,10 @@ export default function ArticlesPage() {
                 <button className='btn-del'>DELETE </button>
               </Popconfirm>
 
-              <button className='btn-edit'>
-                <Link to={`/articles/${slug}/edit`}>EDIT</Link>
-              </button>
+              <Link to={`/articles/${slug}/edit`}>
+                {' '}
+                <button className='btn-edit'>EDIT</button>
+              </Link>
             </div>
           ) : (
             ''
